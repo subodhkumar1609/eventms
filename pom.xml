@@ -1,4 +1,9 @@
 <project>
+    <groupId>com.subodh.event.ms</groupId>
+  <artifactId>eventms</artifactId>
+  <version>1</version>
+  <packaging>war</packaging>
+  <name>eventms</name>
   <build>
     <plugins>
       <plugin>
