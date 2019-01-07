@@ -13,7 +13,7 @@ import com.mongodb.client.MongoDatabase;
 
 public class DBUtils
 {
-	public static void main(String [] args)
+	public static void check()
 	{
 		String password = "VHhXvRV7UUtVQszq";
 		String driver = "mongodb+srv://evappuser:"+password+"@cluster0-igd5v.mongodb.net/test?retryWrites=true";
