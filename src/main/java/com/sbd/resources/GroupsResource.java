@@ -9,7 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import com.sbd.db.connection.DBUtils;
+import com.sbd.db.connection.SQLDBUtils;
 
 @Path("/groups")
 @Consumes("application/json")
@@ -19,7 +19,7 @@ public class GroupsResource
 	@GET
 	public Response getGroups()
 	{
-		DBUtils.check();
+		SQLDBUtils.check();
 		
 		Map<String, String> check = new HashMap<String, String>();
 		check.put("check", "this");
