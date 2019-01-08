@@ -12,7 +12,7 @@ public class SQLDBUtils {
 		String connectionUrl =
                 "jdbc:sqlserver://den1.mssql7.gear.host:1433;"
                         + "database=eventms1;"
-                        + "user=eventms1@den1.mssql7.gear.host;"
+                        + "user=eventms1;"
                         + "password=Sq60_i~hgeuB;"
                         + "loginTimeout=30;";
 		
