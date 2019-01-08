@@ -1,4 +1,4 @@
-package com.sbd.db.connection;
+/*package com.sbd.db.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -107,3 +107,4 @@ public class SQLDBUtils {
 		}
 	}
 
+*/

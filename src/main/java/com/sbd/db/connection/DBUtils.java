@@ -7,7 +7,9 @@ import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 
 public class DBUtils
@@ -30,13 +32,29 @@ public class DBUtils
 	*/
 			MongoClient client = new MongoClient(uri);
 			System.out.println("Getting DB");
-		//	MongoDatabase mdb = client.getDatabase("events-dev");
+			MongoDatabase mdb = client.getDatabase("events-dev");
+			System.out.println("Connection established...");
 			
-			client.getDatabaseNames().forEach(System.out::println);
 			
-			DB db = client.getDB("events-dev");
-			db.getCollectionNames().forEach(System.out::println);
-		
+			MongoCollection<Document> collection = mdb.getCollection("events");
+			
+			System.out.println("Collection recieved --> " + collection);
+			
+			FindIterable<Document> find = collection.find();
+			
+			System.out.println("collection.find()  OK");
+			
+			MongoCursor<Document> iterator = find.iterator();
+			
+			System.out.println("find.iterator()  OK");
+
+			while (iterator.hasNext()) {
+				Document document = iterator.next();
+				System.out.println(document);
+			}
+
+			
+			
 			/*System.out.println("Getting DB :: " + mdb.getName());
 			for(String coll : mdb.listCollectionNames())
 			{
