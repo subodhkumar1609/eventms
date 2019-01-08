@@ -18,7 +18,8 @@ public class DBUtils
 		try
 		{
 			String password = "VHhXvRV7UUtVQszq";
-			String driver = "mongodb+srv://evappuser:"+password+"@cluster0-igd5v.mongodb.net/test?retryWrites=true";
+			//String driver = "mongodb+srv://evappuser:"+password+"@cluster0-igd5v.mongodb.net/test?retryWrites=true";
+			String driver = "mongodb://evappuser:"+password+"@cluster0-shard-00-00-igd5v.mongodb.net:27017,cluster0-shard-00-01-igd5v.mongodb.net:27017,cluster0-shard-00-02-igd5v.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true";
 			MongoClientURI uri = new MongoClientURI(driver);
 			
 			/*   MongoClientOptions options = MongoClientOptions.builder()
