@@ -19,15 +19,19 @@ public class DBUtils
 		String driver = "mongodb+srv://evappuser:"+password+"@cluster0-igd5v.mongodb.net/test?retryWrites=true";
 		MongoClientURI uri = new MongoClientURI(driver);
 		
-		   MongoClientOptions options = MongoClientOptions.builder()
+		/*   MongoClientOptions options = MongoClientOptions.builder()
 		            .readPreference(ReadPreference.primaryPreferred())
 		            .retryWrites(true)
 		            .maxConnectionIdleTime(6000)
 		            .sslEnabled(true)
 		            .build();
-
+*/
 		MongoClient client = new MongoClient(uri);
 		MongoDatabase mdb = client.getDatabase("events-dev");
+		for(String coll : mdb.listCollectionNames())
+		{
+			System.out.println("MONGO all collections : " + coll);
+		}
 		MongoCollection<Document> mcoll = mdb.getCollection("events");
 		
 		System.out.println(uri.getUsername());
