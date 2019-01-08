@@ -30,29 +30,29 @@ public class DBUtils
 	*/
 			MongoClient client = new MongoClient(uri);
 			System.out.println("Getting DB");
-			MongoDatabase mdb = client.getDatabase("events-dev");
+		//	MongoDatabase mdb = client.getDatabase("events-dev");
 			
 			client.getDatabaseNames().forEach(System.out::println);
 			
 			DB db = client.getDB("events-dev");
 			db.getCollectionNames().forEach(System.out::println);
 		
-			System.out.println("Getting DB :: " + mdb.getName());
+			/*System.out.println("Getting DB :: " + mdb.getName());
 			for(String coll : mdb.listCollectionNames())
 			{
 				System.out.println("MONGO all collections : " + coll);
-			}
-			System.out.println("Getting collections :: " + mdb.getCollection("events"));
-			MongoCollection<Document> mcoll = mdb.getCollection("events");
+			}*/
+		//	System.out.println("Getting collections :: " + mdb.getCollection("events"));
+		//	MongoCollection<Document> mcoll = mdb.getCollection("events");
 			
 			System.out.println(uri.getUsername());
-			System.out.println(mcoll.find());
+			/*System.out.println(mcoll.find());
 			
 			for(Document doc : mcoll.find())
 			{
 				String json = com.mongodb.util.JSON.serialize(doc);
 				System.out.println("JSON serialized Document: " + json);
-			}
+			}*/
 			
 			client.close();										
 		}
