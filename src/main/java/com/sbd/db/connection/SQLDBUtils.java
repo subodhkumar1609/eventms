@@ -14,9 +14,6 @@ public class SQLDBUtils {
                         + "database=eventms1;"
                         + "user=eventms1@den1.mssql7.gear.host;"
                         + "password=Sq60_i~hgeuB;"
-                        + "encrypt=true;"
-                        + "trustServerCertificate=false;"
-                        + "hostNameInCertificate=*.database.windows.net;"
                         + "loginTimeout=30;";
 		
 		 ResultSet resultSet = null;
