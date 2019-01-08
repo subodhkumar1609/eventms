@@ -32,6 +32,13 @@ public class DBUtils
 		
 		System.out.println(uri.getUsername());
 		System.out.println(mcoll.find());
+		
+		for(Document doc : mcoll.find())
+		{
+			String json = com.mongodb.util.JSON.serialize(doc);
+			System.out.println("JSON serialized Document: " + json);
+		}
+		
 		client.close();
 		
 	}

@@ -24,6 +24,7 @@ public class GroupsResource
 		Map<String, String> check = new HashMap<String, String>();
 		check.put("check", "this");
 		return Response.ok().entity(check).build();
+		
 	}
 	
 }
