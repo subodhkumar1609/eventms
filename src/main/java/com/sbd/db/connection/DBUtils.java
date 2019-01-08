@@ -15,35 +15,44 @@ public class DBUtils
 {
 	public static void check()
 	{
-		String password = "VHhXvRV7UUtVQszq";
-		String driver = "mongodb+srv://evappuser:"+password+"@cluster0-igd5v.mongodb.net/test?retryWrites=true";
-		MongoClientURI uri = new MongoClientURI(driver);
-		
-		/*   MongoClientOptions options = MongoClientOptions.builder()
-		            .readPreference(ReadPreference.primaryPreferred())
-		            .retryWrites(true)
-		            .maxConnectionIdleTime(6000)
-		            .sslEnabled(true)
-		            .build();
-*/
-		MongoClient client = new MongoClient(uri);
-		MongoDatabase mdb = client.getDatabase("events-dev");
-		for(String coll : mdb.listCollectionNames())
+		try
 		{
-			System.out.println("MONGO all collections : " + coll);
+			String password = "VHhXvRV7UUtVQszq";
+			String driver = "mongodb+srv://evappuser:"+password+"@cluster0-igd5v.mongodb.net/test?retryWrites=true";
+			MongoClientURI uri = new MongoClientURI(driver);
+			
+			/*   MongoClientOptions options = MongoClientOptions.builder()
+			            .readPreference(ReadPreference.primaryPreferred())
+			            .retryWrites(true)
+			            .maxConnectionIdleTime(6000)
+			            .sslEnabled(true)
+			            .build();
+	*/
+			MongoClient client = new MongoClient(uri);
+			System.out.println("Getting DB");
+			MongoDatabase mdb = client.getDatabase("events-dev");
+			System.out.println("Getting DB :: " + mdb.getName());
+			for(String coll : mdb.listCollectionNames())
+			{
+				System.out.println("MONGO all collections : " + coll);
+			}
+			System.out.println("Getting collections :: " + mdb.getCollection("events"));
+			MongoCollection<Document> mcoll = mdb.getCollection("events");
+			
+			System.out.println(uri.getUsername());
+			System.out.println(mcoll.find());
+			
+			for(Document doc : mcoll.find())
+			{
+				String json = com.mongodb.util.JSON.serialize(doc);
+				System.out.println("JSON serialized Document: " + json);
+			}
+			
+			client.close();										
 		}
-		MongoCollection<Document> mcoll = mdb.getCollection("events");
-		
-		System.out.println(uri.getUsername());
-		System.out.println(mcoll.find());
-		
-		for(Document doc : mcoll.find())
+		catch (Exception e) 
 		{
-			String json = com.mongodb.util.JSON.serialize(doc);
-			System.out.println("JSON serialized Document: " + json);
+			e.printStackTrace();
 		}
-		
-		client.close();
-		
 	}
 }
