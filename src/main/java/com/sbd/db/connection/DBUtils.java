@@ -1,5 +1,7 @@
 package com.sbd.db.connection;
 
+import java.util.Arrays;
+
 import org.bson.Document;
 
 import com.mongodb.DB;
@@ -7,6 +9,8 @@ import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -21,7 +25,7 @@ public class DBUtils
 		try
 		{
 			String password = "VHhXvRV7UUtVQszq";
-			String driver = "mongodb+srv://evappuser:"+password+"@cluster0-igd5v.mongodb.net/test?retryWrites=true";
+			String driver = "mongodb+srv://evappuser:"+password+"@cluster0-igd5v.mongodb.net/events-dev?retryWrites=true";
 			//String driver = "mongodb://evappuser:"+password+"@cluster0-shard-00-00-igd5v.mongodb.net:27017,cluster0-shard-00-01-igd5v.mongodb.net:27017,cluster0-shard-00-02-igd5v.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin";
 			MongoClientURI uri = new MongoClientURI(driver);
 			
@@ -32,7 +36,11 @@ public class DBUtils
 			            .sslEnabled(true)
 			            .build();
 	*/
-			client = new MongoClient(uri);
+			
+			//MongoCredential credential = MongoCredential.createCredential("evappuser", "events-dev", password.toCharArray());
+			//client = new MongoClient("cluster0-igd5v.mongodb.net", 27017);
+			
+			//client = new MongoClient(uri);
 			
 			System.out.println("Getting DB");
 			MongoDatabase mdb = client.getDatabase("events-dev");
