@@ -39,6 +39,7 @@ public class DBUtils
 			String driver = "mongodb+srv://evappuser:"+password+"@cluster0-igd5v.mongodb.net/events-dev?retryWrites=true";
 			MongoClientURI uri = new MongoClientURI(driver);
 			
+			client = new MongoClient(uri);
 		
 			System.out.println("Getting DB");
 			MongoDatabase mdb = client.getDatabase("events-dev");
