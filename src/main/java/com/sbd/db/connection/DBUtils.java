@@ -1,49 +1,49 @@
 package com.sbd.db.connection;
 
-import java.util.Arrays;
-
 import org.bson.Document;
-import org.bson.codecs.configuration.CodecProvider;
-import org.bson.codecs.configuration.CodecRegistry;
-import org.bson.codecs.pojo.PojoCodecProvider;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.sbd.db.connection.momgoutils.MongoClientProvider;
 import com.sbd.db.entity.Events;
-import com.sbd.db.entity.Test;
 
 public class DBUtils 
 {
-	public static void check()
+	public MongoDatabase getDatabase()
+	{
+		return MongoClientProvider.getInstance().getDatabase(ResourceBundleHandler.getString("DBNAME"));
+	}
+	
+	public MongoCollection<Document> getCollection(String collName)
+	{
+		return getDatabase().getCollection(collName);
+	}
+	
+	public boolean saveCollection(Object obj)
+	{
+		
+		
+		
+		return false;
+	}
+	
+	
+	public static void getDBConnectionClient()
 	{
 		MongoClient client = null;
 		try
 		{
-			
-		/*	CodecRegistry pojoCodecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
-	                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
-		*/	
-			
-			String password = "VHhXvRV7UUtVQszq";
-			String driver = "mongodb+srv://evappuser:"+password+"@cluster0-igd5v.mongodb.net/events-dev?retryWrites=true";
-			MongoClientURI uri = new MongoClientURI(driver);
+			MongoClientURI uri = new MongoClientURI("");
 			
 			client = new MongoClient(uri);
-		
-			System.out.println("Getting DB");
+			
 			MongoDatabase mdb = client.getDatabase("events-dev");
 			System.out.println("Connection established...");
+			
 			
 			MongoCollection<Document> collection = mdb.getCollection("events");
 			
@@ -76,7 +76,7 @@ public class DBUtils
 			
 		//	collection.insertOne(basicDbObject.to);
 			
-			client.close();										
+			client.close();		
 		}
 		catch (Exception e) 
 		{

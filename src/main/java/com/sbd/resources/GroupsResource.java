@@ -19,7 +19,7 @@ public class GroupsResource
 	@GET
 	public Response getGroups()
 	{
-		DBUtils.check();
+		//DBUtils.check();
 		
 		Map<String, String> check = new HashMap<String, String>();
 		check.put("check", "this");
