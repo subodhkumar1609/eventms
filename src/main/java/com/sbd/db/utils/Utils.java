@@ -4,14 +4,16 @@ import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.MessageFormat;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
-
-import com.sbd.db.connection.ResourceBundleHandler;
 
 /**
  <h1>Corporate Internet Banking Backend - service</h1>
@@ -114,6 +116,19 @@ public class Utils
 	public static String formatMessage(String strMessage, Object...objArgs)
     {
 		return MessageFormat.format(strMessage,objArgs);
+	}
+
+	public static Map<String, String> getMapFromRB(String rbName)
+	{
+		Map<String, String> map = new HashMap<>();
+		ResourceBundle rb = ResourceBundle.getBundle(rbName);
+		Enumeration<String> allKeys = rb.getKeys();
+		while (allKeys.hasMoreElements())
+		{
+			String key = allKeys.nextElement();
+			map.put(key, rb.getString(key));
+		}
+		return map;
 	}
 
 }	

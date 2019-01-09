@@ -1,18 +1,25 @@
 package com.sbd.db.connection;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import org.bson.Document;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import com.sbd.db.connection.momgoutils.MongoClientProvider;
-import com.sbd.db.entity.Events;
+import com.sbd.db.connection.mongoutils.MongoClientProvider;
+import com.sbd.db.entity.Groups;
+import com.sbd.db.utils.CollectionMapper;
 
 public class DBUtils 
 {
+	private ObjectMapper mapper = new ObjectMapper();
+	
 	public MongoDatabase getDatabase()
 	{
 		return MongoClientProvider.getInstance().getDatabase(ResourceBundleHandler.getString("DBNAME"));
@@ -23,68 +30,56 @@ public class DBUtils
 		return getDatabase().getCollection(collName);
 	}
 	
-	public boolean saveCollection(Object obj)
+	public MongoCollection<Document> getCollection(Class<?> clazz)
 	{
-		
-		
-		
-		return false;
+		return getDatabase().getCollection(CollectionMapper.getCollection(clazz));
 	}
 	
-	
-	public static void getDBConnectionClient()
+	public boolean insertCollection(Object obj)
 	{
-		MongoClient client = null;
 		try
 		{
-			MongoClientURI uri = new MongoClientURI("");
-			
-			client = new MongoClient(uri);
-			
-			MongoDatabase mdb = client.getDatabase("events-dev");
-			System.out.println("Connection established...");
-			
-			
-			MongoCollection<Document> collection = mdb.getCollection("events");
-			
-			System.out.println("Collection recieved --> " + collection);
-			
-			FindIterable<Document> find = collection.find();
-			
-			System.out.println("collection.find()  OK");
-			
-			Document document = new Document("name", "Awesomeness");
-			collection.insertOne(document);
-			
-			System.out.println("insert  OK");
-			
-			System.out.println(uri.getUsername());
-			
-			Events events = new Events();
-			events.setEventId(1);
-			events.setEventName("BIRTHDAY1");
-			events.setEventReference("Birthday Bash");
-			events.setGroupId(1);
-			
-			ObjectMapper mapper = new ObjectMapper();
-			String json = mapper.writeValueAsString(events);
-			
-			Document doc = Document.parse(json);
-			collection.insertOne(doc);
-			
-			
-			
-		//	collection.insertOne(basicDbObject.to);
-			
-			client.close();		
+			MongoCollection<Document> collection = getCollection(CollectionMapper.getCollection(obj.getClass()));
+			collection.insertOne(covertToDocument(obj));
+			return true;
 		}
 		catch (Exception e) 
 		{
 			e.printStackTrace();
+			return false;
 		}
-		finally
+	}
+	
+	public List<Object> getAllEntity(Class<?> clazz)
+	{
+		MongoCollection<Document> collection = getCollection(clazz);
+		FindIterable<Document> find = collection.find();
+		MongoCursor<Document> iterator = find.iterator();
+		List<Object> list = new ArrayList<>();
+		while (iterator.hasNext()) 
 		{
-			client.close();				
+			Document document = iterator.next();
+			list.add(mapper.convertValue(document.toJson(), clazz));
 		}
+		return list;
+	}
+	
+	public Document covertToDocument(Object obj) throws JsonProcessingException
+	{
+		return Document.parse(mapper.writeValueAsString(obj));
+	}
+
+	public List<Object> findInCollection(Class<Groups> clazz, BasicDBObject query)
+	{
+		MongoCollection<Document> collection = getCollection(clazz);
+		FindIterable<Document> find = collection.find(query);
+		MongoCursor<Document> iterator = find.iterator();
+		List<Object> list = new ArrayList<>();
+		while (iterator.hasNext()) 
+		{
+			Document document = iterator.next();
+			list.add(mapper.convertValue(document.toJson(), clazz));
+		}
+		return list;
 	}
 }

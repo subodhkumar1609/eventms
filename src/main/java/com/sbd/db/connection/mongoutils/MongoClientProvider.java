@@ -1,4 +1,4 @@
-package com.sbd.db.connection.momgoutils;
+package com.sbd.db.connection.mongoutils;
 
 import com.mongodb.MongoClient;
 import com.sbd.db.connection.ResourceBundleHandler;
