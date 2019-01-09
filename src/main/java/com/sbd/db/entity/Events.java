@@ -2,6 +2,7 @@ package com.sbd.db.entity;
 
 public class Events
 {
+	
 	private int groupId, eventId;
 	private String eventName, eventReference;
 	public int getGroupId()
