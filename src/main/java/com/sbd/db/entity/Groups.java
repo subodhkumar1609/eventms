@@ -2,8 +2,6 @@ package com.sbd.db.entity;
 
 public class Groups 
 {
-	public Groups()	{}
-	
 	private MongoId _id;
 	
 	//private int groupId;
@@ -17,14 +15,7 @@ public class Groups
 	{
 		this._id = _id;
 	}
-	/*public int getGroupId()
-	{
-		return groupId;
-	}
-	public void setGroupId(int groupId)
-	{
-		this.groupId = groupId;
-	}*/
+	
 	public String getGroupPreference()
 	{
 		return groupPreference;

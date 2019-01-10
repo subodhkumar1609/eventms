@@ -1,10 +1,13 @@
 package com.sbd.dao;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mongodb.BasicDBObject;
 import com.sbd.db.connection.DBUtils;
 import com.sbd.db.entity.Groups;
@@ -16,7 +19,7 @@ public class GroupsDAO
 	@Inject
 	DBUtils dbUtils;
 	
-	public List<Object> getGroups(MongoId groupId)
+	public List<Object> getGroups(MongoId groupId) throws JsonParseException, JsonMappingException, IOException
 	{
 		if(groupId == null)
 		{

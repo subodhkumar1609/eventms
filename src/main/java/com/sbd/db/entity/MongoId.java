@@ -1,25 +1,29 @@
 package com.sbd.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class MongoId
 {
-	private String $oid;
+	@JsonProperty("$oid")
+	private String id;
 	
 	public MongoId(){}
 	
-	public MongoId(String $oid)
+	public MongoId(String id)
 	{
-		super();
-		this.$oid = $oid;
+		this.id = id;
 	}
 
-	public String get$oid()
+	public String getId()
 	{
-		return $oid;
+		return id;
 	}
 
-	public void set$oid(String $oid)
+	public void setId(String id)
 	{
-		this.$oid = $oid;
+		this.id = id;
 	}
+	
+	
 	
 }

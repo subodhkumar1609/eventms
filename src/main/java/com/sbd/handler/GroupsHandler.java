@@ -17,12 +17,12 @@ public class GroupsHandler
 	@Inject
 	GroupsDAO groupsDao;
 	
-	public List<Object> getGroups(MongoId groupId)
+	public List<Object> getGroups(MongoId groupId) throws Exception
 	{
 		return groupsDao.getGroups(groupId);
 	}
 
-	public Groups createGroup(Groups group)
+	public Groups createGroup(Groups group)  throws Exception
 	{
 		List<Object> groups = groupsDao.getGroups(group.get_id());
 		if(groups != null && groups.isEmpty() == false)

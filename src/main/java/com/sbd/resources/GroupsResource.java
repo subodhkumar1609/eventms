@@ -14,8 +14,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.bson.types.ObjectId;
-
 import com.sbd.db.entity.Groups;
 import com.sbd.db.entity.MongoId;
 import com.sbd.handler.GroupsHandler;
@@ -28,8 +26,10 @@ public class GroupsResource
 	@Inject
 	GroupsHandler handler;
 	
+	@Context UriInfo uriInfo;
+	
 	@GET
-	public Response getGroups()
+	public Response getGroups() throws Exception
 	{
 		List<Object> list = handler.getGroups(null);
 		if(list == null || list.isEmpty())
@@ -40,7 +40,7 @@ public class GroupsResource
 	
 	@GET
 	@Path("/{groupId}")
-	public Response getGroups(@PathParam("groupId") String groupId)
+	public Response getGroups(@PathParam("groupId") String groupId) throws Exception
 	{
 		MongoId objId = new MongoId(groupId);
 		List<Object> list = handler.getGroups(objId);
@@ -51,7 +51,7 @@ public class GroupsResource
 	}
 	
 	@POST
-	public Response createGroup(Groups group, @Context UriInfo uriInfo)
+	public Response createGroup(Groups group) throws Exception
 	{
 		Groups newGroup = handler.createGroup(group);
 		URI uri = uriInfo.getAbsolutePathBuilder().path(newGroup.get_id().toString()).build();
