@@ -12,7 +12,6 @@ import com.sbd.db.entity.Groups;
 
 public class GroupsDAO
 {
-
 	@Inject
 	DBUtils dbUtils;
 	
