@@ -69,7 +69,7 @@ public class DBUtils
 		return Document.parse(mapper.writeValueAsString(obj));
 	}
 
-	public List<Object> findInCollection(Class<Groups> clazz, BasicDBObject query)
+	public List<Object> findInCollection(Class<?> clazz, BasicDBObject query)
 	{
 		MongoCollection<Document> collection = getCollection(clazz);
 		FindIterable<Document> find = collection.find(query);
