@@ -2,6 +2,7 @@ package com.sbd.dao;
 
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import org.bson.types.ObjectId;
@@ -10,6 +11,7 @@ import com.mongodb.BasicDBObject;
 import com.sbd.db.connection.DBUtils;
 import com.sbd.db.entity.Groups;
 
+@RequestScoped
 public class GroupsDAO
 {
 	@Inject

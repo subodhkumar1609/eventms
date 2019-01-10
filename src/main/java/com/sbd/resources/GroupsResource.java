@@ -24,10 +24,8 @@ import com.sbd.handler.GroupsHandler;
 @Produces("application/json")
 public class GroupsResource 
 {
-	
 	@Inject
 	GroupsHandler handler;
-	
 	
 	@GET
 	public Response getGroups()

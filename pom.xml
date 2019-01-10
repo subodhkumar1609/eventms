@@ -16,7 +16,7 @@
 		<dependency>
 			<groupId>javax.enterprise</groupId>
 			<artifactId>cdi-api</artifactId>
-			<version>2.0.SP1</version>
+			<version>2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.inject</groupId>
@@ -46,11 +46,19 @@
 			<artifactId>mongodb-driver</artifactId>
 			<version>3.8.0</version>
 		</dependency>
-		<dependency>
-    		<groupId>org.jboss.weld.servlet</groupId>
-    		<artifactId>weld-servlet-shaded</artifactId>
-    		<version>3.0.5.Final</version>
-		</dependency>
+		 <dependency>
+            <groupId>org.jboss.weld.servlet</groupId>
+            <artifactId>weld-servlet-shaded</artifactId>
+            <version>3.0.2.Final</version>
+        </dependency> 
+	 	 <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-cdi</artifactId>
+            <version>3.1.4.Final</version>
+        </dependency>
+		<!-- https://mvnrepository.com/artifact/org.jboss.weld.servlet/weld-tomcat-support -->
+
+		
 	</dependencies>
 	<build>
 		<plugins>
@@ -95,5 +103,5 @@
 	</build>
 	<properties>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
-	</properties>
+	</properties> 
 </project>
