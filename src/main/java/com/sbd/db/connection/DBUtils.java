@@ -13,7 +13,6 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.sbd.db.connection.mongoutils.MongoClientProvider;
-import com.sbd.db.entity.Groups;
 import com.sbd.db.utils.CollectionMapper;
 
 public class DBUtils 

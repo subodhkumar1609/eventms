@@ -1,6 +1,7 @@
 package com.sbd.db.connection.mongoutils;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.sbd.db.connection.ResourceBundleHandler;
 import com.sbd.db.utils.Utils;
 
@@ -29,7 +30,7 @@ public class MongoClientProvider
 		try 
 		{
 			//String connectionURI = "mongodb+srv://{1}:{2}@{0}/{3}?retryWrites=true";
-			String connectionURI = "mongodb://{1}:{2}@{0}/{3}?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true";
+			String connectionDriver = "mongodb://{1}:{2}@{0}/{3}?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true";
 			String host = ResourceBundleHandler.getString("DBHOST");
 			host = Utils.getDecryptedPassword(host);
 			String db = ResourceBundleHandler.getString("DBNAME");
@@ -37,8 +38,8 @@ public class MongoClientProvider
 			String password = ResourceBundleHandler.getString("DBPASSWORD");		
 			password = Utils.getDecryptedPassword(password);
 			
-			connectionURI = Utils.formatMessage(connectionURI, host, user, password, db);
-			
+			connectionDriver = Utils.formatMessage(connectionDriver, host, user, password, db);
+			MongoClientURI connectionURI = new MongoClientURI(connectionDriver);			
 			mongoClient = new MongoClient(connectionURI);
 		} 
 		catch (Exception e) 
