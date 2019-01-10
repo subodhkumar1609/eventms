@@ -17,6 +17,7 @@ import javax.ws.rs.core.UriInfo;
 import org.bson.types.ObjectId;
 
 import com.sbd.db.entity.Groups;
+import com.sbd.db.entity.MongoId;
 import com.sbd.handler.GroupsHandler;
 
 @Path("/groups")
@@ -41,7 +42,7 @@ public class GroupsResource
 	@Path("/{groupId}")
 	public Response getGroups(@PathParam("groupId") String groupId)
 	{
-		ObjectId objId = new ObjectId(groupId);
+		MongoId objId = new MongoId(groupId);
 		List<Object> list = handler.getGroups(objId);
 		if(list == null || list.isEmpty())
 			return Response.noContent().build();

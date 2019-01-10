@@ -1,18 +1,19 @@
 package com.sbd.db.entity;
 
-import org.bson.types.ObjectId;
-
 public class Groups 
 {
-	private ObjectId _id;
+	public Groups()	{}
+	
+	private MongoId _id;
+	
 	//private int groupId;
 	private String groupPreference, groupName;
 	
-	public ObjectId get_id()
+	public MongoId get_id()
 	{
 		return _id;
 	}
-	public void set_id(ObjectId _id)
+	public void set_id(MongoId _id)
 	{
 		this._id = _id;
 	}

@@ -5,11 +5,10 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-import org.bson.types.ObjectId;
-
 import com.mongodb.BasicDBObject;
 import com.sbd.db.connection.DBUtils;
 import com.sbd.db.entity.Groups;
+import com.sbd.db.entity.MongoId;
 
 @RequestScoped
 public class GroupsDAO
@@ -17,7 +16,7 @@ public class GroupsDAO
 	@Inject
 	DBUtils dbUtils;
 	
-	public List<Object> getGroups(ObjectId groupId)
+	public List<Object> getGroups(MongoId groupId)
 	{
 		if(groupId == null)
 		{

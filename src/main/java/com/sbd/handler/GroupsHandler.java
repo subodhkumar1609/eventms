@@ -5,11 +5,10 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-import org.bson.types.ObjectId;
-
 import com.mongodb.MongoException;
 import com.sbd.dao.GroupsDAO;
 import com.sbd.db.entity.Groups;
+import com.sbd.db.entity.MongoId;
 import com.sbd.db.utils.ApplicationConstants;
 
 @RequestScoped
@@ -18,7 +17,7 @@ public class GroupsHandler
 	@Inject
 	GroupsDAO groupsDao;
 	
-	public List<Object> getGroups(ObjectId groupId)
+	public List<Object> getGroups(MongoId groupId)
 	{
 		return groupsDao.getGroups(groupId);
 	}
