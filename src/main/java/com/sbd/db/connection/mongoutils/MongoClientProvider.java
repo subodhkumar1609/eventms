@@ -28,14 +28,15 @@ public class MongoClientProvider
 		
 		try 
 		{
-			String connectionURI = "mongodb+srv://{1}:{2}@{0}/{1}?retryWrites=true";
+			String connectionURI = "mongodb+srv://{1}:{2}@{0}/{3}?retryWrites=true";
 			String host = ResourceBundleHandler.getString("DBHOST");
 			host = Utils.getDecryptedPassword(host);
+			String db = ResourceBundleHandler.getString("DBNAME");
 			String user = ResourceBundleHandler.getString("DBUSER");
 			String password = ResourceBundleHandler.getString("DBPASSWORD");		
 			password = Utils.getDecryptedPassword(password);
 			
-			connectionURI = Utils.formatMessage(connectionURI, host, user, password);
+			connectionURI = Utils.formatMessage(connectionURI, host, user, password, db);
 			
 			mongoClient = new MongoClient(connectionURI);
 		} 
