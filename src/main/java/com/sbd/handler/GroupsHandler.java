@@ -7,7 +7,6 @@ import javax.inject.Inject;
 
 import com.sbd.dao.GroupsDAO;
 import com.sbd.db.entity.Groups;
-import com.sbd.db.entity.MongoId;
 import com.sbd.db.utils.ApplicationConstants;
 import com.sbd.db.utils.MongoException;
 
@@ -42,6 +41,29 @@ public class GroupsHandler
 		}
 		
 		boolean groupStatus = groupsDao.createGroup(group);
+		
+		if(groupStatus)
+		{
+			groups = groupsDao.getGroups(group.getId());
+			return groups == null || groups.isEmpty() ? null : (Groups) groups.get(0);
+		}
+		return null;
+	}
+
+	public Groups updateGroup(Groups group) throws Exception
+	{
+		List<Object> groups = null;
+		
+		if(group.getId() != null)
+		{
+			groups = groupsDao.getGroups(group.getId());
+			if(groups == null || groups.isEmpty())
+			{
+				throw new MongoException(ApplicationConstants.NOT_EXIST);
+			}
+		}
+		
+		boolean groupStatus = groupsDao.updateGroup(group);
 		
 		if(groupStatus)
 		{

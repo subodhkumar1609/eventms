@@ -38,7 +38,7 @@ public class GroupsDAO
 	
 	public boolean updateGroup(Groups group)
 	{
-		return dbUtils.insertCollection(group);
+		return dbUtils.updateCollection(group);
 	}
 
 }
