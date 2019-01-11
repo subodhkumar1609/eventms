@@ -1,20 +1,8 @@
 package com.sbd.db.entity;
 
-public class Groups 
-{
-	private MongoId _id;
-	
-	//private int groupId;
+public class Groups extends CommonBean
+{	
 	private String groupPreference, groupName;
-	
-	public MongoId get_id()
-	{
-		return _id;
-	}
-	public void set_id(MongoId _id)
-	{
-		this._id = _id;
-	}
 	
 	public String getGroupPreference()
 	{
@@ -35,9 +23,8 @@ public class Groups
 	@Override
 	public String toString()
 	{
-		return "Groups [_id=" + _id + ", groupPreference=" + groupPreference + ", groupName="
+		return "Groups [_id=" + getId() + ", groupPreference=" + groupPreference + ", groupName="
 				+ groupName + "]";
 	}
-	
 	
 }

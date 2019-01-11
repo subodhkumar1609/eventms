@@ -24,7 +24,7 @@ public class GroupsHandler
 
 	public Groups createGroup(Groups group)  throws Exception
 	{
-		List<Object> groups = groupsDao.getGroups(group.get_id());
+		List<Object> groups = groupsDao.getGroups(group.getId());
 		if(groups != null && groups.isEmpty() == false)
 		{
 			throw new MongoException(ApplicationConstants.DUPLICATE_COLLECTION);
@@ -34,7 +34,7 @@ public class GroupsHandler
 		
 		if(groupStatus)
 		{
-			groups = groupsDao.getGroups(group.get_id());
+			groups = groupsDao.getGroups(group.getId());
 			return groups == null || groups.isEmpty() ? null : (Groups) groups.get(0);
 		}
 		return null;

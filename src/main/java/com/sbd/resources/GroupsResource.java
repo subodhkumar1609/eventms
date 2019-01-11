@@ -54,7 +54,7 @@ public class GroupsResource
 	public Response createGroup(Groups group) throws Exception
 	{
 		Groups newGroup = handler.createGroup(group);
-		URI uri = uriInfo.getAbsolutePathBuilder().path(newGroup.get_id().toString()).build();
+		URI uri = uriInfo.getAbsolutePathBuilder().path(newGroup.getId().toString()).build();
 		return Response.created(uri).entity(newGroup).build();
 	}
 

@@ -52,7 +52,7 @@ public class DBUtils
 		}
 	}
 	
-	public List<Object> getAllEntity(Class<?> clazz)
+	public List<Object> getAllEntity(Class<?> clazz) throws JsonParseException, JsonMappingException, IOException
 	{
 		MongoCollection<Document> collection = getCollection(clazz);
 		FindIterable<Document> find = collection.find();
@@ -61,7 +61,7 @@ public class DBUtils
 		while (iterator.hasNext()) 
 		{
 			Document document = iterator.next();
-			list.add(mapper.convertValue(document.toJson(), clazz));
+			list.add(mapper.readValue(document.toJson(), clazz));
 		}
 		return list;
 	}

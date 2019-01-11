@@ -27,8 +27,7 @@ public class GroupsDAO
 		}
 		else
 		{
-			
-			BasicDBObject query = new BasicDBObject("_id", groupId);
+			BasicDBObject query = new BasicDBObject("_id", groupId.get_id());
 			return dbUtils.findInCollection(Groups.class, query);
 		}
 	}
