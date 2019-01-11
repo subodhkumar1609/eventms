@@ -41,4 +41,9 @@ public class GroupsDAO
 		return dbUtils.updateCollection(group);
 	}
 
+	public boolean deleteGroup(Long groupId)
+	{
+		return dbUtils.deleteCollection(Groups.class, groupId);
+	}
+
 }

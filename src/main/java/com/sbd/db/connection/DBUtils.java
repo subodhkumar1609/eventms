@@ -19,6 +19,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.sbd.db.connection.mongoutils.MongoClientProvider;
 import com.sbd.db.entity.CommonBean;
+import com.sbd.db.entity.Groups;
 import com.sbd.db.utils.CollectionMapper;
 
 public class DBUtils 
@@ -101,5 +102,12 @@ public class DBUtils
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	public boolean deleteCollection(Class<Groups> clazz, Long id)
+	{
+		MongoCollection<Document> collection = getCollection(CollectionMapper.getCollection(clazz));
+		collection.deleteOne(Filters.eq("_id", id));
+		return false;
 	}
 }

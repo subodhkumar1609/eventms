@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -39,6 +40,14 @@ public class GroupsResource
 			return Response.noContent().build();
 		else
 			return Response.ok(list).build();
+	}
+	
+	@DELETE
+	@Path("/{groupId}")
+	public Response deleteGroups(@PathParam("groupId") Long groupId) throws Exception
+	{
+		boolean isSuccess = handler.deleteGroups(groupId);
+		return Response.noContent().build();
 	}
 	
 	@GET

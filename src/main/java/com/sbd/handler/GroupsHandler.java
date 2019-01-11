@@ -1,10 +1,13 @@
 package com.sbd.handler;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.sbd.dao.GroupsDAO;
 import com.sbd.db.entity.Groups;
 import com.sbd.db.utils.ApplicationConstants;
@@ -71,5 +74,16 @@ public class GroupsHandler
 			return groups == null || groups.isEmpty() ? null : (Groups) groups.get(0);
 		}
 		return null;
+	}
+
+	public boolean deleteGroups(Long groupId) throws JsonParseException, JsonMappingException, IOException
+	{
+		List<Object> groups = groupsDao.getGroups(groupId);
+		if(groups == null || groups.isEmpty())
+		{
+			return true;
+		}
+		
+		return  groupsDao.deleteGroup(groupId);
 	}
 }
