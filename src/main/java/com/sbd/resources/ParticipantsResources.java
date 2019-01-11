@@ -16,45 +16,44 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.Status;
 
-import com.sbd.db.entity.Users;
+import com.sbd.db.entity.Participants;
 import com.sbd.db.utils.ApplicationConstants;
 import com.sbd.db.utils.MongoException;
-import com.sbd.handler.UsersHandler;
+import com.sbd.handler.ParticipantsHandler;
 
-@Path("/users")
+@Path("/participants")
 @Consumes("application/json")
 @Produces("application/json")
-public class UsersResource
+public class ParticipantsResources
 {
-	
 	@Inject
-	UsersHandler handler;
+	ParticipantsHandler handler;
 	
 	@Context UriInfo uriInfo;
 	
 	@GET
-	@Path("/{groupId}")
-	public Response getAllUsers(@PathParam("groupId") Long groupId) throws Exception
+	@Path("/{eventId}")
+	public Response getAllParticipant(@PathParam("eventId") Long eventId) throws Exception
 	{
-		List<Object> list = handler.getAllUsers(groupId);
+		List<Object> list = handler.getAllParticipants(eventId);
 		return Response.ok(list).build();
 	}
 	
 	@GET
-	@Path("/{groupId}/{userId}")
-	public Response getUser(@PathParam("groupId") Long groupId, @PathParam("userId") Long userId) throws Exception
+	@Path("/{eventId}/{participantId}")
+	public Response getParticipant(@PathParam("eventId") Long eventId, @PathParam("participantId") Long participantId) throws Exception
 	{
-		Users user = handler.getUser(groupId, userId);
+		Participants user = handler.getParticipant(eventId, participantId);
 		return Response.ok(user).build();
 	}
 	
 	@POST
-	public Response createUser(Users users) throws Exception
+	public Response createParticipantGroup(Participants participant) throws Exception
 	{
 		try
 		{
-			Users newUser = handler.createUser(users);
-			URI uri = uriInfo.getAbsolutePathBuilder().path(users.getId().toString()).build();
+			Participants newUser = handler.createParticipant(participant);
+			URI uri = uriInfo.getAbsolutePathBuilder().path(participant.getId().toString()).build();
 			return Response.created(uri).entity(newUser).build();	
 		}
 		catch (MongoException e) 
@@ -71,9 +70,9 @@ public class UsersResource
 	}
 	
 	@PUT
-	public Response updateUser(Users user) throws Exception
+	public Response updateParticipantGroup(Participants user) throws Exception
 	{
-		Users newuser = handler.updateUser(user);
+		Participants newuser = handler.updateParticipant(user);
 		return Response.ok(newuser).build();	
 	}
 }

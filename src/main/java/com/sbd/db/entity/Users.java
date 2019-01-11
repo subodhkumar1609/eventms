@@ -1,24 +1,25 @@
 package com.sbd.db.entity;
 
-public class Users
+public class Users extends CommonBean
 {
-	private int groupId, userId;
-	private String email, name;
-	public int getGroupId()
+	private Groups group;
+	private String email, name, statusId, password, userType, authKey;
+	
+	public String getAuthKey()
 	{
-		return groupId;
+		return authKey;
 	}
-	public void setGroupId(int groupId)
+	public void setAuthKey(String authKey)
 	{
-		this.groupId = groupId;
+		this.authKey = authKey;
 	}
-	public int getUserId()
+	public Groups getGroup()
 	{
-		return userId;
+		return group;
 	}
-	public void setUserId(int userId)
+	public void setGroup(Groups group)
 	{
-		this.userId = userId;
+		this.group = group;
 	}
 	public String getEmail()
 	{
@@ -36,10 +37,34 @@ public class Users
 	{
 		this.name = name;
 	}
+	public String getStatusId()
+	{
+		return statusId;
+	}
+	public void setStatusId(String statusId)
+	{
+		this.statusId = statusId;
+	}
+	public String getPassword()
+	{
+		return password;
+	}
+	public void setPassword(String password)
+	{
+		this.password = password;
+	}
+	public String getUserType()
+	{
+		return userType;
+	}
+	public void setUserType(String userType)
+	{
+		this.userType = userType;
+	}
 	@Override
 	public String toString()
 	{
-		return "Users [groupId=" + groupId + ", userId=" + userId + ", email=" + email + ", name=" + name + "]";
+		return "Users [group=" + group + ", email=" + email + ", name=" + name + ", statusId=" + statusId
+				+ ", password=" + password + ", userType=" + userType + ", getId()=" + getId() + "]";
 	}
-	
 }

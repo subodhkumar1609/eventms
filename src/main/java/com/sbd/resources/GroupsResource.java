@@ -47,18 +47,21 @@ public class GroupsResource
 	public Response deleteGroups(@PathParam("groupId") Long groupId) throws Exception
 	{
 		boolean isSuccess = handler.deleteGroups(groupId);
-		return Response.noContent().build();
+		if(isSuccess)
+			return Response.noContent().build();
+		else
+			return Response.serverError().build();
 	}
 	
 	@GET
 	@Path("/{groupId}")
-	public Response getGroups(@PathParam("groupId") Long groupId) throws Exception
+	public Response getGroup(@PathParam("groupId") Long groupId) throws Exception
 	{
 		List<Object> list = handler.getGroups(groupId);
 		if(list == null || list.isEmpty())
 			return Response.noContent().build();
 		else
-			return Response.ok(list).build();
+			return Response.ok(list.get(0)).build();
 	}
 	
 	@POST
@@ -86,23 +89,8 @@ public class GroupsResource
 	@PUT
 	public Response updateGroup(Groups group) throws Exception
 	{
-		try
-		{
-			Groups newGroup = handler.updateGroup(group);
-			URI uri = uriInfo.getAbsolutePathBuilder().path(newGroup.getId().toString()).build();
-			return Response.created(uri).entity(newGroup).build();	
-		}
-		catch (MongoException e) 
-		{
-			if(e.getErrorCode() == ApplicationConstants.DUPLICATE_COLLECTION)
-			{
-				return Response.status(Status.CONFLICT).build();
-			}
-			else
-			{
-				throw e;
-			}
-		}
+		Groups newGroup = handler.updateGroup(group);
+		return Response.ok(newGroup).build();	
 	}
 
 	

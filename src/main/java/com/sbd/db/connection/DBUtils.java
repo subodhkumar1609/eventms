@@ -3,9 +3,11 @@ package com.sbd.db.connection;
 import java.util.List;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.bson.Document;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -19,12 +21,11 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.sbd.db.connection.mongoutils.MongoClientProvider;
 import com.sbd.db.entity.CommonBean;
-import com.sbd.db.entity.Groups;
 import com.sbd.db.utils.CollectionMapper;
 
 public class DBUtils 
 {
-	private ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	private ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false).setSerializationInclusion(Include.NON_NULL);
 	
 	public MongoDatabase getDatabase()
 	{
@@ -41,11 +42,12 @@ public class DBUtils
 		return getDatabase().getCollection(CollectionMapper.getCollection(clazz));
 	}
 	
-	public boolean insertCollection(Object obj)
+	public boolean insertCollection(CommonBean obj)
 	{
 		try
 		{
 			MongoCollection<Document> collection = getCollection(CollectionMapper.getCollection(obj.getClass()));
+			obj.setAuditWhen(new Date());
 			collection.insertOne(covertToDocument(obj));
 			return true;
 		}
@@ -88,12 +90,38 @@ public class DBUtils
 		}
 		return list;
 	}
+	
+	public List<Object> findInCollection(Class<?> clazz, Object[][] queryParams) throws JsonParseException, JsonMappingException, IOException
+	{
+		if(queryParams == null)
+		{
+			return null;
+		}
+		
+		BasicDBObject query = new BasicDBObject();
+		for(Object[] params : queryParams)
+		{
+			query.append((String) params[0], params[1]);
+		}
+		
+		MongoCollection<Document> collection = getCollection(clazz);
+		FindIterable<Document> find = collection.find(query);
+		MongoCursor<Document> iterator = find.iterator();
+		List<Object> list = new ArrayList<>();
+		while (iterator.hasNext()) 
+		{
+			Document document = iterator.next();
+			list.add(mapper.readValue(document.toJson(), clazz));
+		}
+		return list;
+	}
 
 	public boolean updateCollection(CommonBean obj)
 	{
 		try
 		{
 			MongoCollection<Document> collection = getCollection(CollectionMapper.getCollection(obj.getClass()));
+			obj.setAuditWhen(new Date());
 			collection.updateOne(Filters.eq("_id", obj.getId()), new Document("$set", covertToDocument(obj)));
 			return true;
 		}
@@ -104,10 +132,18 @@ public class DBUtils
 		}
 	}
 
-	public boolean deleteCollection(Class<Groups> clazz, Long id)
+	public boolean deleteCollection(Class<?> clazz, Long id)
 	{
-		MongoCollection<Document> collection = getCollection(CollectionMapper.getCollection(clazz));
-		collection.deleteOne(Filters.eq("_id", id));
-		return false;
+		try
+		{
+			MongoCollection<Document> collection = getCollection(CollectionMapper.getCollection(clazz));
+			collection.deleteOne(Filters.eq("_id", id));
+			return true;
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

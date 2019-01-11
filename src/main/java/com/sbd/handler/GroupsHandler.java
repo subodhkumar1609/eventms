@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.sbd.dao.GroupsDAO;
 import com.sbd.db.entity.Groups;
+import com.sbd.db.utils.AppException;
 import com.sbd.db.utils.ApplicationConstants;
 import com.sbd.db.utils.MongoException;
 
@@ -85,5 +86,15 @@ public class GroupsHandler
 		}
 		
 		return  groupsDao.deleteGroup(groupId);
+	}
+	
+	public boolean isGroupExist(Long groupid) throws Exception
+	{
+		List<Object> groups = getGroups(groupid);
+		if(groups == null || groups.isEmpty())
+		{
+			throw new AppException(ApplicationConstants.GROUP_NOT_AVAILABLE);
+		}
+		return true;
 	}
 }

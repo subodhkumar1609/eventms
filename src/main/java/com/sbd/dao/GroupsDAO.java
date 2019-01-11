@@ -8,7 +8,6 @@ import javax.inject.Inject;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.mongodb.BasicDBObject;
 import com.sbd.db.connection.DBUtils;
 import com.sbd.db.entity.Groups;
 
@@ -26,7 +25,7 @@ public class GroupsDAO
 		}
 		else
 		{
-			BasicDBObject query = new BasicDBObject("_id", groupId);
+			Object[][] query = {{"_id",groupId }};
 			return dbUtils.findInCollection(Groups.class, query);
 		}
 	}

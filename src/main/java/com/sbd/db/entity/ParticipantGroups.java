@@ -1,26 +1,18 @@
 package com.sbd.db.entity;
 
-public class ParticipantGroups
+public class ParticipantGroups extends CommonBean
 {
-	private int eventId, groupId;
+	private Events event;
 	private String name, remarks;
 	private long amount;
-		
-	public int getEventId()
+	
+	public Events getEvent()
 	{
-		return eventId;
+		return event;
 	}
-	public void setEventId(int eventId)
+	public void setEvent(Events event)
 	{
-		this.eventId = eventId;
-	}
-	public int getGroupId()
-	{
-		return groupId;
-	}
-	public void setGroupId(int groupId)
-	{
-		this.groupId = groupId;
+		this.event = event;
 	}
 	public String getName()
 	{
@@ -38,7 +30,6 @@ public class ParticipantGroups
 	{
 		this.remarks = remarks;
 	}
-	
 	public long getAmount()
 	{
 		return amount;
@@ -47,11 +38,11 @@ public class ParticipantGroups
 	{
 		this.amount = amount;
 	}
+	
 	@Override
 	public String toString()
 	{
-		return "ParticipantGroups [eventId=" + eventId + ", groupId=" + groupId + ", name=" + name + ", remarks="
-				+ remarks + ", amount=" + amount + "]";
+		return "ParticipantGroups [event=" + event + ", name=" + name + ", remarks=" + remarks + ", amount=" + amount
+				+ "]";
 	}
-	
 }

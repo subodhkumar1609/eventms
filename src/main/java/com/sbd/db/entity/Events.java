@@ -1,25 +1,20 @@
 package com.sbd.db.entity;
 
-public class Events
+import java.util.Date;
+
+public class Events extends CommonBean
 {
+	private Groups group;
+	private String eventName, eventReference, statusId;
+	private Date eventDate;
 	
-	private int groupId, eventId;
-	private String eventName, eventReference;
-	public int getGroupId()
+	public Groups getGroup()
 	{
-		return groupId;
+		return group;
 	}
-	public void setGroupId(int groupId)
+	public void setGroup(Groups group)
 	{
-		this.groupId = groupId;
-	}
-	public int getEventId()
-	{
-		return eventId;
-	}
-	public void setEventId(int eventId)
-	{
-		this.eventId = eventId;
+		this.group = group;
 	}
 	public String getEventName()
 	{
@@ -37,11 +32,26 @@ public class Events
 	{
 		this.eventReference = eventReference;
 	}
+	public String getStatusId()
+	{
+		return statusId;
+	}
+	public void setStatusId(String statusId)
+	{
+		this.statusId = statusId;
+	}
+	public Date getEventDate()
+	{
+		return eventDate;
+	}
+	public void setEventDate(Date eventDate)
+	{
+		this.eventDate = eventDate;
+	}
 	@Override
 	public String toString()
 	{
-		return "Events [groupId=" + groupId + ", eventId=" + eventId + ", eventName=" + eventName + ", eventReference="
-				+ eventReference + "]";
+		return "Events [group=" + group + ", eventName=" + eventName + ", eventReference=" + eventReference
+				+ ", statusId=" + statusId + ", eventDate=" + eventDate + "]";
 	}
-	
 }

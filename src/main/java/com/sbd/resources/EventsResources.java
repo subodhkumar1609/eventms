@@ -16,45 +16,44 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.Status;
 
-import com.sbd.db.entity.Users;
+import com.sbd.db.entity.Events;
 import com.sbd.db.utils.ApplicationConstants;
 import com.sbd.db.utils.MongoException;
-import com.sbd.handler.UsersHandler;
+import com.sbd.handler.EventsHandler;
 
-@Path("/users")
+@Path("/events")
 @Consumes("application/json")
 @Produces("application/json")
-public class UsersResource
+public class EventsResources
 {
-	
 	@Inject
-	UsersHandler handler;
+	EventsHandler handler;
 	
 	@Context UriInfo uriInfo;
 	
 	@GET
 	@Path("/{groupId}")
-	public Response getAllUsers(@PathParam("groupId") Long groupId) throws Exception
+	public Response getAllEvents(@PathParam("groupId") Long groupId) throws Exception
 	{
-		List<Object> list = handler.getAllUsers(groupId);
+		List<Object> list = handler.getAllEvents(groupId);
 		return Response.ok(list).build();
 	}
 	
 	@GET
-	@Path("/{groupId}/{userId}")
-	public Response getUser(@PathParam("groupId") Long groupId, @PathParam("userId") Long userId) throws Exception
+	@Path("/{groupId}/{eventId}")
+	public Response getEvents(@PathParam("groupId") Long groupId, @PathParam("eventId") Long eventId) throws Exception
 	{
-		Users user = handler.getUser(groupId, userId);
+		Events user = handler.getEvent(groupId, eventId);
 		return Response.ok(user).build();
 	}
 	
 	@POST
-	public Response createUser(Users users) throws Exception
+	public Response createEvent(Events events) throws Exception
 	{
 		try
 		{
-			Users newUser = handler.createUser(users);
-			URI uri = uriInfo.getAbsolutePathBuilder().path(users.getId().toString()).build();
+			Events newUser = handler.createEvent(events);
+			URI uri = uriInfo.getAbsolutePathBuilder().path(events.getId().toString()).build();
 			return Response.created(uri).entity(newUser).build();	
 		}
 		catch (MongoException e) 
@@ -71,9 +70,9 @@ public class UsersResource
 	}
 	
 	@PUT
-	public Response updateUser(Users user) throws Exception
+	public Response updateEvent(Events user) throws Exception
 	{
-		Users newuser = handler.updateUser(user);
+		Events newuser = handler.updateEvent(user);
 		return Response.ok(newuser).build();	
 	}
 }
