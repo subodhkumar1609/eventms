@@ -16,6 +16,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.sbd.db.connection.mongoutils.MongoClientProvider;
 import com.sbd.db.entity.CommonBean;
 import com.sbd.db.utils.CollectionMapper;
@@ -92,8 +93,7 @@ public class DBUtils
 		try
 		{
 			MongoCollection<Document> collection = getCollection(CollectionMapper.getCollection(obj.getClass()));
-			BasicDBObject searchQuery = new BasicDBObject().append("_id", obj.getId());
-			collection.updateOne(searchQuery, covertToDocument(obj));
+			collection.updateOne(Filters.eq("_id", obj.getId()), new Document("$set", covertToDocument(obj)));
 			return true;
 		}
 		catch (Exception e) 
