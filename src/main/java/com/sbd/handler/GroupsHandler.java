@@ -5,11 +5,11 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-import com.mongodb.MongoException;
 import com.sbd.dao.GroupsDAO;
 import com.sbd.db.entity.Groups;
 import com.sbd.db.entity.MongoId;
 import com.sbd.db.utils.ApplicationConstants;
+import com.sbd.db.utils.MongoException;
 
 @RequestScoped
 public class GroupsHandler

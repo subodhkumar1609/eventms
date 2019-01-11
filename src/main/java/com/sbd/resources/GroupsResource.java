@@ -62,7 +62,7 @@ public class GroupsResource
 		}
 		catch (MongoException e) 
 		{
-			if(e.getMessage().equals(ApplicationConstants.DUPLICATE_COLLECTION))
+			if(e.getErrorCode() == ApplicationConstants.DUPLICATE_COLLECTION)
 			{
 				return Response.status(Status.CONFLICT).build();
 			}
