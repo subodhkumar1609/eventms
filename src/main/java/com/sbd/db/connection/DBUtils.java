@@ -8,6 +8,7 @@ import org.bson.Document;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.BasicDBObject;
@@ -20,7 +21,7 @@ import com.sbd.db.utils.CollectionMapper;
 
 public class DBUtils 
 {
-	private ObjectMapper mapper = new ObjectMapper();
+	private ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	
 	public MongoDatabase getDatabase()
 	{

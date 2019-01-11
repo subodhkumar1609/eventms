@@ -24,10 +24,15 @@ public class GroupsHandler
 
 	public Groups createGroup(Groups group)  throws Exception
 	{
-		List<Object> groups = groupsDao.getGroups(group.getId());
-		if(groups != null && groups.isEmpty() == false)
+		List<Object> groups = null;
+		
+		if(group.getId() != null)
 		{
-			throw new MongoException(ApplicationConstants.DUPLICATE_COLLECTION);
+			groups = groupsDao.getGroups(group.getId());
+			if(groups != null && groups.isEmpty() == false)
+			{
+				throw new MongoException(ApplicationConstants.DUPLICATE_COLLECTION);
+			}
 		}
 		
 		boolean groupStatus = groupsDao.createGroup(group);
