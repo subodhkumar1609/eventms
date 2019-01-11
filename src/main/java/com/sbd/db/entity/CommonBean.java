@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class CommonBean
 {
 	@JsonProperty("_id")
-	private MongoId id;
+	private Long id;
 	
-	public MongoId getId()
+	public Long getId()
 	{
 		return id;
 	}
-	public void setId(MongoId id)
+	public void setId(Long id)
 	{
 		this.id = id;
 	}

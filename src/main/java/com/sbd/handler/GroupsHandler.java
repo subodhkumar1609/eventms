@@ -23,7 +23,7 @@ public class GroupsHandler
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Object> getGroups(MongoId groupId) throws Exception
+	public List<Object> getGroups(Long groupId) throws Exception
 	{
 		return groupsDao.getGroups(groupId);
 	}

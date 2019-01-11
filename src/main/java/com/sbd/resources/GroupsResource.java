@@ -16,7 +16,6 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import com.sbd.db.entity.Groups;
-import com.sbd.db.entity.MongoId;
 import com.sbd.db.utils.ApplicationConstants;
 import com.sbd.db.utils.MongoException;
 import com.sbd.handler.GroupsHandler;
@@ -43,10 +42,9 @@ public class GroupsResource
 	
 	@GET
 	@Path("/{groupId}")
-	public Response getGroups(@PathParam("groupId") String groupId) throws Exception
+	public Response getGroups(@PathParam("groupId") Long groupId) throws Exception
 	{
-		MongoId objId = new MongoId(groupId);
-		List<Object> list = handler.getGroups(objId);
+		List<Object> list = handler.getGroups(groupId);
 		if(list == null || list.isEmpty())
 			return Response.noContent().build();
 		else

@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mongodb.BasicDBObject;
 import com.sbd.db.connection.DBUtils;
 import com.sbd.db.entity.Groups;
-import com.sbd.db.entity.MongoId;
 
 @RequestScoped
 public class GroupsDAO
@@ -19,7 +18,7 @@ public class GroupsDAO
 	@Inject
 	DBUtils dbUtils;
 	
-	public List<Object> getGroups(MongoId groupId) throws JsonParseException, JsonMappingException, IOException
+	public List<Object> getGroups(Long groupId) throws JsonParseException, JsonMappingException, IOException
 	{
 		if(groupId == null)
 		{
@@ -27,7 +26,7 @@ public class GroupsDAO
 		}
 		else
 		{
-			BasicDBObject query = new BasicDBObject("_id", groupId.get_id());
+			BasicDBObject query = new BasicDBObject("_id", groupId);
 			return dbUtils.findInCollection(Groups.class, query);
 		}
 	}
