@@ -12,10 +12,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import com.sbd.db.entity.Groups;
 import com.sbd.db.entity.MongoId;
+import com.sbd.db.utils.ApplicationConstants;
+import com.sbd.db.utils.MongoException;
 import com.sbd.handler.GroupsHandler;
 
 @Path("/groups")
@@ -53,9 +56,23 @@ public class GroupsResource
 	@POST
 	public Response createGroup(Groups group) throws Exception
 	{
-		Groups newGroup = handler.createGroup(group);
-		URI uri = uriInfo.getAbsolutePathBuilder().path(newGroup.getId().toString()).build();
-		return Response.created(uri).entity(newGroup).build();
+		try
+		{
+			Groups newGroup = handler.createGroup(group);
+			URI uri = uriInfo.getAbsolutePathBuilder().path(newGroup.getId().toString()).build();
+			return Response.created(uri).entity(newGroup).build();	
+		}
+		catch (MongoException e) 
+		{
+			if(e.getMessage().equals(ApplicationConstants.DUPLICATE_COLLECTION))
+			{
+				return Response.status(Status.CONFLICT).build();
+			}
+			else
+			{
+				throw e;
+			}
+		}
 	}
 
 	

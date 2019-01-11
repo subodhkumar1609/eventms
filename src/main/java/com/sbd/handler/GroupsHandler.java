@@ -17,6 +17,12 @@ public class GroupsHandler
 	@Inject
 	GroupsDAO groupsDao;
 	
+	/***
+	 * 
+	 * @param groupId
+	 * @return
+	 * @throws Exception
+	 */
 	public List<Object> getGroups(MongoId groupId) throws Exception
 	{
 		return groupsDao.getGroups(groupId);
