@@ -3,7 +3,7 @@ package com.sbd.db.entity;
 public class Users extends CommonBean
 {
 	private Groups group;
-	private String email, name, statusId, password, userType, authKey;
+	private String email, name, statusId, password, userType, authKey, newPassword;
 	
 	public String getAuthKey()
 	{
@@ -61,10 +61,19 @@ public class Users extends CommonBean
 	{
 		this.userType = userType;
 	}
+	
+	public String getNewPassword()
+	{
+		return newPassword;
+	}
+	public void setNewPassword(String newPassword)
+	{
+		this.newPassword = newPassword;
+	}
 	@Override
 	public String toString()
 	{
 		return "Users [group=" + group + ", email=" + email + ", name=" + name + ", statusId=" + statusId
-				+ ", password=" + password + ", userType=" + userType + ", getId()=" + getId() + "]";
+				+ ", password=MASKED, userType=" + userType + ", getId()=" + getId() + "]";
 	}
 }

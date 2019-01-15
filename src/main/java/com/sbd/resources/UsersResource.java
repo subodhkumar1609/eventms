@@ -32,6 +32,23 @@ public class UsersResource
 	
 	@Context UriInfo uriInfo;
 	
+	@POST
+	@Path("/login")
+	public Response processLogin(Users users) throws Exception
+	{
+		Users user = handler.processLogin(users);
+		return Response.ok(user).build();
+	}
+	
+	
+	@POST
+	@Path("/passchange")
+	public Response processPasswordChange(Users users) throws Exception
+	{
+		Users user = handler.processLogin(users);
+		return Response.ok(user).build();
+	}	
+	
 	@GET
 	@Path("/{groupId}")
 	public Response getAllUsers(@PathParam("groupId") Long groupId) throws Exception

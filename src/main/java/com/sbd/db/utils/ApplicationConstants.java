@@ -7,4 +7,5 @@ public class ApplicationConstants
 	public static final int GROUP_NOT_AVAILABLE = 1001;
 	public static final int EVENT_NOT_AVAILABLE = 1002;
 	public static final int PARTICIPANTGROUP_NOT_AVAILABLE = 1003;
+	public static final int WRONG_CREDENTIAL = 1004;
 }

@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import com.sbd.dao.UsersDAO;
 import com.sbd.db.entity.Users;
+import com.sbd.db.utils.AppException;
 import com.sbd.db.utils.ApplicationConstants;
 import com.sbd.db.utils.MongoException;
 
@@ -30,12 +31,21 @@ public class UsersHandler
 	{
 		groupHandler.isGroupExist(groupId);
 		
+		Users user = dao.getUser(groupId, userId); 
+		user.setPassword(null);
+		return user;
+	}
+	
+	public Users getUserWithPassword(Long groupId, Long userId) throws Exception 
+	{
+		groupHandler.isGroupExist(groupId);
+		
 		return dao.getUser(groupId, userId);
 	}
 
 	public Users createUser(Users users) throws Exception 
 	{
-		Object existingUser = getUser(users.getGroup().getId(), users.getId());
+		Users existingUser = getUser(users.getGroup().getId(), users.getId());
 		if(existingUser != null)
 		{
 			throw new MongoException(ApplicationConstants.DUPLICATE_COLLECTION);
@@ -46,7 +56,7 @@ public class UsersHandler
 		if(createUserStatus)
 		{
 			existingUser = dao.getUser(users.getGroup().getId(), users.getId());
-			return (Users) existingUser;
+			return existingUser;
 		}
 		
 		return null;
@@ -60,6 +70,8 @@ public class UsersHandler
 			throw new MongoException(ApplicationConstants.NOT_EXIST);
 		}
 		
+		user.setPassword(existingUser.getPassword());
+		
 		boolean status = dao.updateUser(user);
 		if(status)
 		{
@@ -67,6 +79,22 @@ public class UsersHandler
 		}
 		
 		return user;
+	}
+
+	public Users processLogin(Users user) throws Exception
+	{
+		Users existingUser = getUserWithPassword(user.getGroup().getId(), user.getId());
+		if(existingUser == null)
+		{
+			throw new AppException(ApplicationConstants.WRONG_CREDENTIAL);
+		}
+		
+		if(existingUser == null || existingUser.getPassword().equals(user.getPassword()) == false)
+		{
+			throw new AppException(ApplicationConstants.WRONG_CREDENTIAL);
+		}
+		existingUser.setPassword(null);
+		return existingUser;
 	}
 	
 }
