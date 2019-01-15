@@ -47,7 +47,6 @@ public class DBUtils
 		try
 		{
 			MongoCollection<Document> collection = getCollection(CollectionMapper.getCollection(obj.getClass()));
-			obj.setAuditWhen(System.currentTimeMillis());
 			collection.insertOne(covertToDocument(obj));
 			return true;
 		}
@@ -121,7 +120,6 @@ public class DBUtils
 		try
 		{
 			MongoCollection<Document> collection = getCollection(CollectionMapper.getCollection(obj.getClass()));
-			obj.setAuditWhen(System.currentTimeMillis());
 			collection.updateOne(Filters.eq("_id", obj.getId()), new Document("$set", covertToDocument(obj)));
 			return true;
 		}
