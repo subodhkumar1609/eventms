@@ -1,7 +1,5 @@
 package com.sbd.db.entity;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,7 +7,7 @@ public class CommonBean
 {
 	@JsonProperty("_id")
 	private Long id;
-	private Date auditWhen;
+	private Long auditWhen;
 	
 	public Long getId()
 	{
@@ -21,13 +19,13 @@ public class CommonBean
 	}
 	
 	@JsonProperty
-	public Date getAuditWhen()
+	public Long getAuditWhen()
 	{
 		return auditWhen;
 	}
 	
 	@JsonIgnore
-	public void setAuditWhen(Date auditWhen)
+	public void setAuditWhen(Long auditWhen)
 	{
 		this.auditWhen = auditWhen;
 	}
