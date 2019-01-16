@@ -32,7 +32,8 @@ public class UsersHandler
 		groupHandler.isGroupExist(groupId);
 		
 		Users user = dao.getUser(groupId, userId); 
-		user.setPassword(null);
+		if(user != null)
+			user.setPassword(null);
 		return user;
 	}
 	
@@ -45,7 +46,7 @@ public class UsersHandler
 
 	public Users createUser(Users users) throws Exception 
 	{
-		Users existingUser = getUser(users.getGroup().getId(), users.getId());
+		Users existingUser = getUserWithPassword(users.getGroup().getId(), users.getId());
 		if(existingUser != null)
 		{
 			throw new MongoException(ApplicationConstants.DUPLICATE_COLLECTION);
@@ -84,11 +85,6 @@ public class UsersHandler
 	public Users processLogin(Users user) throws Exception
 	{
 		Users existingUser = getUserWithPassword(user.getGroup().getId(), user.getId());
-		if(existingUser == null)
-		{
-			throw new AppException(ApplicationConstants.WRONG_CREDENTIAL);
-		}
-		
 		if(existingUser == null || existingUser.getPassword().equals(user.getPassword()) == false)
 		{
 			throw new AppException(ApplicationConstants.WRONG_CREDENTIAL);
