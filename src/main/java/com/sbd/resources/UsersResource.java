@@ -39,7 +39,7 @@ public class UsersResource
 		Users user = handler.processLogin(users);
 		return Response.ok(user).header("Access-Control-Allow-Methods", "POST")
 								.header("Access-Control-Allow-Headers", "Content-Type")
-								.header("Access-Control-Allow-Methods", "*")
+								.header("Access-Control-Allow-Origin", "*")
 								.build();
 	}
 	
