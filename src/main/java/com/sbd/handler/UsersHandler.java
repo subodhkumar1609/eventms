@@ -57,6 +57,9 @@ public class UsersHandler
 		if(createUserStatus)
 		{
 			existingUser = dao.getUser(users.getGroup().getId(), users.getId());
+			existingUser.setPassword(null);
+			existingUser.setNewPassword(null);
+			existingUser.setAuthKey(null);
 			return existingUser;
 		}
 		
@@ -77,6 +80,9 @@ public class UsersHandler
 		if(status)
 		{
 			user = getUser(user.getGroup().getId(), user.getId());
+			user.setPassword(null);
+			user.setNewPassword(null);
+			user.setAuthKey(null);
 		}
 		
 		return user;

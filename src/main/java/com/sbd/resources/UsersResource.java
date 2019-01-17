@@ -37,7 +37,10 @@ public class UsersResource
 	public Response processLogin(Users users) throws Exception
 	{
 		Users user = handler.processLogin(users);
-		return Response.ok(user).build();
+		return Response.ok(user).header("Access-Control-Allow-Methods", "POST")
+								.header("Access-Control-Allow-Headers", "Content-Type")
+								.header("Access-Control-Allow-Methods", "*")
+								.build();
 	}
 	
 	
