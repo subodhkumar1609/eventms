@@ -1,7 +1,10 @@
 package com.sbd.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -35,7 +38,14 @@ public class GroupsResource
 	@GET
 	public Response getGroups() throws Exception
 	{
-		List<Object> list = handler.getGroups(null);
+		//List<Object> list = handler.getGroups(null);
+		List<Object> list = new ArrayList<Object>();
+		Map<String, String> mp = new HashMap<String, String>();
+		mp.put("name", "Subodh");
+		list.add(mp);
+		
+		System.out.println(list);
+		
 		if(list == null || list.isEmpty())
 			return Response.noContent().build();
 		else
