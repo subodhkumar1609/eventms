@@ -11,11 +11,10 @@ var app = angular.module('emgs', ['ngRoute']);
 	                    'Content-Type': 'application/json;charset=utf-8;'
 	                }
 	            }
-			$http.post('https://sbd-eventmg.herokuapp.com/users/login', loginData, config).then(function mySuccess(response) {
+			$http.post('/be/users/login', loginData, config).then(function mySuccess(response) {
 								console(response.data);
 								$rootScope.loggedInUser = response.data.id;
 								$rootScope.groupId = response.data.group.id;
-								$location.path('/events');
 								//$scope.myWelcome = response.data;
 							}, function myError(response) {
 									$scope.myWelcome = response.statusText;
