@@ -39,10 +39,7 @@ public class UsersResource
 		System.out.println("Login request recieved");
 		Users user = handler.processLogin(users);
 		System.out.println("Login Success" + user);
-		return Response.ok(user).header("Access-Control-Allow-Methods", "POST")
-								.header("Access-Control-Allow-Headers", "Content-Type")
-								.header("Access-Control-Allow-Origin", "*")
-								.build();
+		return Response.ok(user).build();
 	}
 	
 	
